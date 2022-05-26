@@ -27,7 +27,10 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
             root.getValues().add(value);
         } else {
             int max_degree = 2 * min_degree - 1;
-            if(root.getKeys().size() == max_degree){
+            int index = root.getKeys().indexOf(key);
+            if(index != -1) {
+                root.getValues().set(index, value);
+            } else if(root.getKeys().size() == max_degree){
                 IBTreeNode<K,V> tmp = new BTreeNode<>();
                 tmp.setLeaf(false);
                 tmp.getChildren().add(root);
@@ -68,7 +71,10 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
 
     private void insertNotFull(IBTreeNode<K, V> node, K key, V value){
         int i = min_degree - 1;
-        if(node.isLeaf()){
+        int index = node.getKeys().indexOf(key);
+        if(index != -1) {
+            node.getValues().set(index, value);
+        } else if(node.isLeaf()){
             while(i >= 0 && key.compareTo(node.getKeys().get(i)) < 0){
                 i--;
             }

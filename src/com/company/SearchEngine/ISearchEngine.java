@@ -1,4 +1,4 @@
-package com.company;
+package com.company.SearchEngine;
 
 import java.util.List;
 
