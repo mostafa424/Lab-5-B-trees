@@ -36,6 +36,10 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
                 tmp.getChildren().add(root);
                 splitNode(0, tmp, root);
                 root = tmp;
+                int i = 0;
+                if (tmp.getKeys().get(0).compareTo(key)<0)
+                    i++;
+                insertNotFull(tmp.getChildren().get(i),key,value);
             } else {
                 insertNotFull(root, key, value);
             }
@@ -67,12 +71,12 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
         }
         parentNode.getChildren().add(childPosition+1, newNode);
         if(parentNode.getKeys().isEmpty()){
-            parentNode.getKeys().add(childNode.getKeys().get(min_degree-1));
-            parentNode.getValues().add(childNode.getValues().get(min_degree-1));
+            parentNode.getKeys().add(childNode.getKeys().remove(min_degree-1));
+            parentNode.getValues().add(childNode.getValues().remove(min_degree-1));
         }
         else{
-            parentNode.getKeys().add(childPosition+1, childNode.getKeys().get(min_degree-1));
-            parentNode.getValues().add(childPosition+1,childNode.getValues().get(min_degree-1));
+            parentNode.getKeys().add(childPosition+1, childNode.getKeys().remove(min_degree-1));
+            parentNode.getValues().add(childPosition+1,childNode.getValues().remove(min_degree-1));
         }
     }
 
@@ -103,10 +107,10 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
 
     private V searchNode(IBTreeNode<K, V> node, K key){
         int i = 0;
-        while(i < node.getKeys().size() && key.compareTo(node.getKeys().get(i)) < 0){
+        while(i < node.getKeys().size() && node.getKeys().get(i).compareTo(key)< 0){
             i++;
         }
-        if(i!=node.getKeys().size() && node.getKeys().size()!=0 && node.getKeys().get(i)==key ){
+        if(i!=node.getKeys().size() && node.getKeys().size()!=0 && node.getKeys().get(i).equals(key)){
             return node.getValues().get(i);
         } else if (node.isLeaf()) {
             return null;
