@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 	  //  System.out.println(new ChooseFile().chooseFile());
       //  System.out.println(new ChooseDirectory().chooseFile());
-        new TestCode().test();
+        new MainController().run();
     }
 }
 /*
