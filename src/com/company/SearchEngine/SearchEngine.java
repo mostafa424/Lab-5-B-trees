@@ -35,6 +35,7 @@ public class SearchEngine implements ISearchEngine {
             String text = eElement.getTextContent();
             String[] textArray = text.split(" ");
             for (String word : textArray) {
+                word = word.replace("\n", "");
                 Integer res = wordTree.search(word);
                 if (res == null) res = 0;
                 wordTree.insert(word, res);
