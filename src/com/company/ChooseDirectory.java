@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class ChooseDirectory extends Component {
-    public String chooseFile() {
+public class ChooseDirectory extends Component implements IChooser{
+    @Override
+    public String getDirectory() {
         JFileChooser jFileChooser = new JFileChooser();
         /*
         set default place
