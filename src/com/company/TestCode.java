@@ -20,6 +20,7 @@ public class TestCode {
         for(int i = 0; i < 8/*length of the string*/; i++) {
 
             // generate random index number
+            //test code
             int index = random.nextInt(alphabet.length());
 
             // get character specified by index
