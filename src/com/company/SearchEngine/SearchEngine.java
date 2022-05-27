@@ -33,7 +33,7 @@ public class SearchEngine implements ISearchEngine {
         for (Element eElement : docElements) {
             IBTree<String, Integer> wordTree = new BTree<>(20);
             String text = eElement.getTextContent();
-            String[] textArray = text.split("\s");
+            String[] textArray = text.split("\s|\n");
             for (String word : textArray) {
                 if(!word.isBlank()) {
                     Integer res = wordTree.search(word);

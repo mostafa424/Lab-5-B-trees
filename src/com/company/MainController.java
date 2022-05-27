@@ -74,7 +74,7 @@ public class MainController {
         IBTree<Integer, WikiDoc> testTree = new BTree<>(20);
         ISearchEngine iSearchEngine = new SearchEngine(testTree, new ArrayList<Integer>());
         String path;
-        int input= scanner.nextInt();
+        int input= Integer.parseInt(scanner.nextLine());
         switch (input) {
             case 1:
                 iChooser = new ChooseFile();
