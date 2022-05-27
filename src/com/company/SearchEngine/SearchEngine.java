@@ -37,7 +37,7 @@ public class SearchEngine implements ISearchEngine {
             for (String word : textArray) {
                 Integer res = wordTree.search(word);
                 if (res == null) res = 0;
-                wordTree.insert(word, res);
+                wordTree.insert(word, res+1);
             }
             WikiDoc doc = new WikiDoc(Integer.parseInt(eElement.getAttribute("id")), eElement.getAttribute("url"), eElement.getAttribute("title"), wordTree);
             this.searchTree.insert(doc.getId(), doc);

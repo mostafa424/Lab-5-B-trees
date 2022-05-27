@@ -106,7 +106,7 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
         while(i < node.getKeys().size() && key.compareTo(node.getKeys().get(i)) < 0){
             i++;
         }
-        if(node.getKeys().get(i)==key){
+        if(i!=node.getKeys().size() && node.getKeys().size()!=0 && node.getKeys().get(i)==key ){
             return node.getValues().get(i);
         } else if (node.isLeaf()) {
             return null;
