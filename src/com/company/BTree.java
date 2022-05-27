@@ -57,20 +57,27 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
     private void splitNode(int childPosition, IBTreeNode<K, V> parentNode, IBTreeNode<K, V> childNode){
         IBTreeNode<K,V> newNode = new BTreeNode<>();
         for(int i = 0; i < this.min_degree - 1; i++){
-            newNode.getKeys().add(childNode.getKeys().remove(i + min_degree));
-            newNode.getValues().add(childNode.getValues().remove(i + min_degree));
+            newNode.getKeys().add(childNode.getKeys().remove( min_degree));
+            newNode.getValues().add(childNode.getValues().remove(min_degree));
         }
         if(!childNode.isLeaf()){
             for(int i = 0; i < min_degree; i++){
-                newNode.getChildren().add(childNode.getChildren().remove(i + min_degree));
+                newNode.getChildren().add(childNode.getChildren().remove(min_degree));
             }
         }
         parentNode.getChildren().add(childPosition+1, newNode);
-        parentNode.getKeys().add(childPosition+1, childNode.getKeys().get(min_degree-1));
+        if(parentNode.getKeys().isEmpty()){
+            parentNode.getKeys().add(childNode.getKeys().get(min_degree-1));
+            parentNode.getValues().add(childNode.getValues().get(min_degree-1));
+        }
+        else{
+            parentNode.getKeys().add(childPosition+1, childNode.getKeys().get(min_degree-1));
+            parentNode.getValues().add(childPosition+1,childNode.getValues().get(min_degree-1));
+        }
     }
 
     private void insertNotFull(IBTreeNode<K, V> node, K key, V value){
-        int i = min_degree - 1;
+        int i = node.getNumOfKeys() - 1;
         int index = node.getKeys().indexOf(key);
         if(index != -1) {
             node.getValues().set(index, value);
