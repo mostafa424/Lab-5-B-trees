@@ -71,7 +71,7 @@ public class MainController {
         System.out.println("2-Search in one files.");
         Scanner scanner = new Scanner(System.in);
         IChooser iChooser;
-        IBTree<Integer, WikiDoc> testTree=new BTree<>(20);
+        IBTree<Integer, WikiDoc> testTree = new BTree<>(20);
         ISearchEngine iSearchEngine = new SearchEngine(testTree, new ArrayList<Integer>());
         String path;
         int input= scanner.nextInt();
@@ -96,7 +96,7 @@ public class MainController {
             else {
                 List<ISearchResult> list = iSearchEngine.searchByWordWithRanking(word);
                 for (ISearchResult iSearchResult: list) {
-                    System.out.println("");
+                    System.out.println("ID: "+iSearchResult.getId() +"  Rank: " +iSearchResult.getRank());
                 }
             }
         }
