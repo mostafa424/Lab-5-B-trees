@@ -68,7 +68,7 @@ public class SearchEngine implements ISearchEngine {
         if(docElements == null) return;
         for (Element docElement : docElements) {
             this.searchTree.delete(Integer.parseInt(docElement.getAttribute("id")));
-            this.insertedID.remove(Integer.parseInt(docElement.getAttribute("id")));
+            this.insertedID.remove((Object)Integer.parseInt(docElement.getAttribute("id")));
         }
     }
 
@@ -122,6 +122,7 @@ public class SearchEngine implements ISearchEngine {
     }
 
     private List<Element> parseElements(String filePath) {
+        System.out.println("Reading file: " + filePath);
         List<Element> res = new ArrayList<>();
         File file = new File(filePath);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -143,11 +144,9 @@ public class SearchEngine implements ISearchEngine {
             return null;
         }
         document.getDocumentElement().normalize();
-        System.out.println("Root: " + document.getDocumentElement().getTagName());
         NodeList nodeList = document.getElementsByTagName("doc");
         for (int i=0; i<nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
-            System.out.println("\nCurrent node: "+ node.getNodeName());
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 res.add((Element) node);
             }
