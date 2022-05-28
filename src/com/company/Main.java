@@ -6,7 +6,6 @@ public class Main {
 	  //  System.out.println(new ChooseFile().chooseFile());
       //  System.out.println(new ChooseDirectory().chooseFile());
         new MainController().run();
-       //System.out.println("Draft".compareTo("ann"));
     }
 }
 /*
