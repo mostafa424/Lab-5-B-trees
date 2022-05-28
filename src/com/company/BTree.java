@@ -78,8 +78,8 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
             parentNode.getValues().add(childNode.getValues().remove(min_degree-1));
         }
         else{
-            parentNode.getKeys().add(childPosition+1, childNode.getKeys().remove(min_degree-1));
-            parentNode.getValues().add(childPosition+1,childNode.getValues().remove(min_degree-1));
+            parentNode.getKeys().add(childPosition, childNode.getKeys().remove(min_degree-1));
+            parentNode.getValues().add(childPosition,childNode.getValues().remove(min_degree-1));
         }
     }
 
@@ -99,7 +99,7 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
                 i--;
             }
             if(node.getChildren().get(i+1).getKeys().size() == 2 * min_degree - 1) {
-                splitNode(i + 1, node, node.getChildren().get(i + 1));
+                splitNode(i+1 , node, node.getChildren().get(i+1));
                 if (key.compareTo(node.getKeys().get(i+1)) > 0) {
                     i++;
                 }

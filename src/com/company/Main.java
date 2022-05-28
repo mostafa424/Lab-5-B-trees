@@ -5,8 +5,8 @@ public class Main {
     public static void main(String[] args) {
 	  //  System.out.println(new ChooseFile().chooseFile());
       //  System.out.println(new ChooseDirectory().chooseFile());
-       // new MainController().run();
-        System.out.println("Draft".compareTo("ann"));
+        new MainController().run();
+       //System.out.println("Draft".compareTo("ann"));
     }
 }
 /*
