@@ -64,7 +64,7 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
         IBTreeNode<K,V> newNode = new BTreeNode<>();
             newNode.setLeaf(childNode.isLeaf());
         for(int i = 0; i < this.min_degree - 1; i++){
-            newNode.getKeys().add(childNode.getKeys().remove( min_degree));
+            newNode.getKeys().add(childNode.getKeys().remove(min_degree));
             newNode.getValues().add(childNode.getValues().remove(min_degree));
         }
         if(!childNode.isLeaf()){
@@ -124,7 +124,7 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
 
     private boolean deleteValue(IBTreeNode<K, V> nodeParent, IBTreeNode<K, V> node, K key) {
         int i = 0;
-        while(i < node.getKeys().size() && key.compareTo(node.getKeys().get(i)) < 0){
+        while(i < node.getKeys().size() && node.getKeys().get(i).compareTo(key) < 0){
             i++;
         }
         if(node.getKeys().get(i) == key){
@@ -133,6 +133,7 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
                 node.getValues().remove(i);
                 if (node.getNumOfKeys() < min_degree - 1 && nodeParent != null) {
                     deleteFixup(nodeParent, nodeParent.getChildren().indexOf(node));
+                    if(root.getKeys().isEmpty()) root = node;
                 }
             } else {
                 node.getKeys().set(i, node.getChildren().get(i+1).getKeys().get(0));

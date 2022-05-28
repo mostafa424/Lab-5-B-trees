@@ -33,11 +33,13 @@ public class SearchEngine implements ISearchEngine {
         for (Element eElement : docElements) {
             IBTree<String, Integer> wordTree = new BTree<>(20);
             String text = eElement.getTextContent();
-            String[] textArray = text.split(" ");
+            String[] textArray = text.split("\s|\n");
             for (String word : textArray) {
-                Integer res = wordTree.search(word);
-                if (res == null) res = 0;
-                wordTree.insert(word, res+1);
+                if(!word.isBlank()) {
+                    Integer res = wordTree.search(word);
+                    if (res == null) res = 0;
+                    wordTree.insert(word, res + 1);
+                }
             }
             WikiDoc doc = new WikiDoc(Integer.parseInt(eElement.getAttribute("id")), eElement.getAttribute("url"), eElement.getAttribute("title"), wordTree);
             this.searchTree.insert(doc.getId(), doc);
