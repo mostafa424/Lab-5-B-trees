@@ -36,11 +36,12 @@ public class MainController {
         System.out.println("Welcome to B-tree testing Program");
         System.out.println("Enter minimum degree: ");
         IBTree<Integer,String> testTree=new BTree<>(scanner.nextInt());
-        System.out.println("For insertions press 1");
-        System.out.println("For searching press 2");
-        System.out.println("For deletion press 3");
-        System.out.println("To Exit press 4");
-        while(input!=0){
+
+        while(input!=4){
+            System.out.println("For insertions press 1");
+            System.out.println("For searching press 2");
+            System.out.println("For deletion press 3");
+            System.out.println("To Exit press 4");
                 input= scanner.nextInt();
                 switch (input){
                     case 1:
@@ -61,7 +62,7 @@ public class MainController {
                         break;
                 }
         }
-
+        System.out.println("Exiting ...");
 
     }
     private void testSearchEngine(){
