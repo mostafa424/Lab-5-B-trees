@@ -154,8 +154,8 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
 
     private void deleteFixup(IBTreeNode<K, V> parentNode, int childNum) {
         if (childNum > 0 && parentNode.getChildren().get(childNum - 1).getNumOfKeys() > min_degree - 1) {
-            parentNode.getChildren().get(childNum).getKeys().add(parentNode.getKeys().get(childNum - 1));
-            parentNode.getChildren().get(childNum).getValues().add(parentNode.getValues().get(childNum - 1));
+            parentNode.getChildren().get(childNum).getKeys().add(0, parentNode.getKeys().get(childNum - 1));
+            parentNode.getChildren().get(childNum).getValues().add(0, parentNode.getValues().get(childNum - 1));
             parentNode.getKeys().set(childNum - 1, parentNode.getChildren().get(childNum - 1).getKeys().get(parentNode.getChildren().get(childNum - 1).getKeys().size() - 1));
             parentNode.getValues().set(childNum - 1, parentNode.getChildren().get(childNum - 1).getValues().get(parentNode.getChildren().get(childNum - 1).getValues().size() - 1));
             parentNode.getChildren().get(childNum - 1).getKeys().remove(parentNode.getChildren().get(childNum - 1).getKeys().size() - 1);
