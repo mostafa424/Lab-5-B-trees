@@ -57,8 +57,7 @@ public class MainController {
                     case 3:
                         System.out.println("Enter key:");
                         int key3= scanner.nextInt();
-                        testTree.delete(key3);
-                        System.out.println("Operation Success");
+                        System.out.println("Deleted: " + testTree.delete(key3));
                         break;
                 }
         }
@@ -66,48 +65,50 @@ public class MainController {
 
     }
     private void testSearchEngine(){
-        System.out.println("Choose operation");
-        System.out.println("1-Search in one file.");
-        System.out.println("2-Search in one files.");
-        System.out.println("3-Delete file from engine.");
         Scanner scanner = new Scanner(System.in);
         IChooser iChooser;
         IBTree<Integer, WikiDoc> testTree = new BTree<>(20);
         ISearchEngine iSearchEngine = new SearchEngine(testTree, new ArrayList<Integer>());
         String path;
-        int input= Integer.parseInt(scanner.nextLine());
-        boolean searching = true;
+        boolean searching;
         boolean running = true;
         while(running) {
+            System.out.println("Choose operation");
+            System.out.println("1-Index one file.");
+            System.out.println("2-Index one directory.");
+            System.out.println("3-Delete file from engine.");
+            System.out.println("4-Search words from engine.");
+            int input= Integer.parseInt(scanner.nextLine());
+            searching = true;
             switch (input) {
-                case 1:
+                case 1 -> {
                     iChooser = new ChooseFile();
                     path = iChooser.getDirectory();
                     iSearchEngine.indexWebPage(path);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     iChooser = new ChooseDirectory();
                     path = iChooser.getDirectory();
                     iSearchEngine.indexDirectory(path);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     iChooser = new ChooseFile();
                     path = iChooser.getDirectory();
                     iSearchEngine.deleteWebPage(path);
-                    searching = false;
-                    break;
-            }
-            System.out.println();
-            while (searching) {
-                System.out.println("Enter Words or -1 to finish");
-                String word = scanner.nextLine();
-                if (word.equals("-1")) {
-                    running = false;
-                    break;
-                } else {
-                    List<ISearchResult> list = iSearchEngine.searchByMultipleWordWithRanking(word);
-                    for (ISearchResult iSearchResult : list) {
-                        System.out.println("ID: " + iSearchResult.getId() + "  Rank: " + iSearchResult.getRank());
+                }
+                case 4 -> {
+                    System.out.println();
+                    while (searching) {
+                        System.out.println("Enter Words or -1 to finish");
+                        String word = scanner.nextLine();
+                        if (word.equals("-1")) {
+                            searching = false;
+                        } else {
+                            List<ISearchResult> list = iSearchEngine.searchByMultipleWordWithRanking(word);
+                            for (ISearchResult iSearchResult : list) {
+                                System.out.println("ID: " + iSearchResult.getId() + "  Rank: " + iSearchResult.getRank());
+                            }
+                        }
                     }
                 }
             }
