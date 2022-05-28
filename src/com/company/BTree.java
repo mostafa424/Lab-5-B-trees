@@ -35,11 +35,13 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
                 tmp.setLeaf(false);
                 tmp.getChildren().add(root);
                 splitNode(0, tmp, root);
-                root = tmp;
                 int i = 0;
                 if (tmp.getKeys().get(0).compareTo(key)<0)
+                {
                     i++;
+                }
                 insertNotFull(tmp.getChildren().get(i),key,value);
+                root = tmp;
             } else {
                 insertNotFull(root, key, value);
             }
@@ -60,6 +62,7 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
 
     private void splitNode(int childPosition, IBTreeNode<K, V> parentNode, IBTreeNode<K, V> childNode){
         IBTreeNode<K,V> newNode = new BTreeNode<>();
+            newNode.setLeaf(childNode.isLeaf());
         for(int i = 0; i < this.min_degree - 1; i++){
             newNode.getKeys().add(childNode.getKeys().remove( min_degree));
             newNode.getValues().add(childNode.getValues().remove(min_degree));
@@ -97,11 +100,11 @@ public class BTree <K extends Comparable<K>, V> implements IBTree<K, V>{
             }
             if(node.getChildren().get(i+1).getKeys().size() == 2 * min_degree - 1) {
                 splitNode(i + 1, node, node.getChildren().get(i + 1));
-                if (key.compareTo(node.getKeys().get(i)) > 0) {
+                if (key.compareTo(node.getKeys().get(i+1)) > 0) {
                     i++;
                 }
-                insertNotFull(node.getChildren().get(i), key, value);
             }
+            insertNotFull(node.getChildren().get(i+1), key, value);
         }
     }
 
